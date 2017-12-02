@@ -1,0 +1,19 @@
+version: '2'
+services:
+    hotmanv2-app:
+        image: hotmanv2
+        environment:
+            - SPRING_PROFILES_ACTIVE=prod,swagger
+            - SPRING_DATASOURCE_URL=jdbc:mysql://hotmanv2-mysql:3306/hotmanv2?useUnicode=true&characterEncoding=utf8&useSSL=false
+            - JHIPSTER_SLEEP=10 # gives time for the database to boot before the application
+            - SPRING_DATA_ELASTICSEARCH_CLUSTER_NODES=hotmanv2-elasticsearch:9300
+        ports:
+            - 8080:8080
+    hotmanv2-mysql:
+        extends:
+            file: mysql.yml
+            service: hotmanv2-mysql
+    hotmanv2-elasticsearch:
+        extends:
+            file: elasticsearch.yml
+            service: hotmanv2-elasticsearch
